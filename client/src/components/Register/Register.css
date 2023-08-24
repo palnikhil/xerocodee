@@ -1,0 +1,27 @@
+.register-box {
+    width: 50%;
+    height: 80%;
+
+    flex-shrink: 0;
+    border-radius: 0 35px 0 35px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.register-box_divider {
+    height: 90%;
+    border-left: 1px solid rgba(0, 0, 0, 0.45);
+}
+
+.auth_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 50px;
+}
+
+.register-box_icon {
+    justify-content: flex-end;
+}

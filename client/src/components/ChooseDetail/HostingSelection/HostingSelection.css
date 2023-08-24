@@ -1,0 +1,60 @@
+.hosting-selection-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-text {
+    color: #000;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 48px */
+    text-transform: capitalize;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+  /* Style for the horizontal lines */
+.horizontal-line {
+    width: 20%; /* Make the line span the full width of the container */
+    border-top: 1px solid #AAB2C873; /* Change the color and style as needed */
+    transform: translateY(-50%); /* Adjust to vertically center the line */
+}
+
+.choose-text {
+    color: #767c8d73;
+    padding: 0 20px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.detail-box_button-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+.detail-box_button {
+    padding: 10px;
+    height: auto;
+    width: 30%;
+    background-color: white;
+    border: 0.8px solid #767c8d73;
+    border-radius: 5px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 60%;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 30px */
+    text-transform: capitalize;
+    transition: background-color 0.3s;
+}
+.detail-box_button:hover {
+    background-color: #1F64FF;
+    color: white;
+}
