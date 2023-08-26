@@ -4,6 +4,13 @@ import authScreenImage from '../../assets/auth_window_img.svg';
 import './Login.css';
 
 function Login() {
+    const google = () => {
+        const sameOriginContext = window.open("http://localhost:5000/auth/google", "_self");
+        console.log(sameOriginContext)
+      };
+    const Github = () => {
+        window.open("http://localhost:5000/auth/github", "_self");
+    }
     return (
         <div className='login-box'>
             <div className='login-box_auth'>
@@ -16,8 +23,8 @@ function Login() {
                 <button>Submit!</button>
                 <p> OR </p>
                 <div>
-                    <button>Sign In with Google</button>
-                    <button>Sign In with Github</button>
+                    <button onClick={google}>Sign In with Google</button>
+                    <button onClick={Github}>Sign In with Github</button>
                 </div>
              </div>
             </div>
