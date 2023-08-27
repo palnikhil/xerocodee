@@ -40,12 +40,12 @@ router.get('/auth/google/callback',
         let result = await authController.GoogleAuth(req);
         console.log(result);
         if(result.code === 201){
-            res.cookie('token',result.data.token).status(result.code).redirect('http://localhost:3000/login');
+            res.cookie('token',result.data.token).status(result.code).redirect('https://xerocodee-assignment-o79u.onrender.com/login');
         }else if(result.code === 200){
-            res.cookie('token',result.data.token).status(result.code).redirect('http://localhost:3000/dashboard');
+            res.cookie('token',result.data.token).status(result.code).redirect('https://xerocodee-assignment-o79u.onrender.com/dashboard');
         }
         else{
-            res.cookie('result', result).status(result.code).redirect('http://localhost:3000/login');
+            res.cookie('result', result).status(result.code).redirect('https://xerocodee-assignment-o79u.onrender.com/login');
         }
     }
 );
@@ -58,12 +58,12 @@ router.get('/auth/github/callback',
         console.log(req.user);
         let result = await authController.GithubAuth(req)
         if(result.code === 201){
-            res.cookie('token',result.data.token).status(result.code).redirect('http://localhost:3000/login');
+            res.cookie('token',result.data.token).status(result.code).redirect('https://xerocodee-assignment-o79u.onrender.com/login');
         }else if(result.code === 200){
-            res.cookie('token',result.data.token).status(result.code).redirect('http://localhost:3000/dashboard');
+            res.cookie('token',result.data.token).status(result.code).redirect('https://xerocodee-assignment-o79u.onrender.com/dashboard');
         }
         else{
-            res.cookie('result', result).status(result.code).redirect('http://localhost:3000/login');
+            res.cookie('result', result).status(result.code).redirect('https://xerocodee-assignment-o79u.onrender.com/login');
         }
     }
 );
