@@ -136,27 +136,36 @@ dbController.queryTableFromUsername = (username) => {
   })
 };
 
-dbController.updateField = (user_id,username,field, fieldValue) => {
-    const params = {
-      TableName: tableName,
-      Key: {
-        user_id: user_id, // Replace with the actual user_id value
-        username: username, // Replace with the actual username value
-      },
-      UpdateExpression: `SET ${field} = :newfield`, // Update the email attribute
-      ExpressionAttributeValues: {
-        'newfield' : fieldValue, // Replace with the new email value
-      },
-      ReturnValues: 'UPDATED_NEW', // Return the updated value
+dbController.updateField = async function(userId, customField,customValue) {
+  const params = {
+    TableName: tableName, // Replace with your table name
+    Key: {
+      user_id: userId
+    },
+    UpdateExpression: 'SET #customField = :customValue',
+    ExpressionAttributeNames: {
+      '#customField': customField
+    },
+    ExpressionAttributeValues: {
+      ':customValue': customValue
+    },
+    ReturnValues: 'ALL_NEW' // Change to your preferred return values
+  };
+
+  try {
+    const result = await docClient.update(params).promise();
+    return {
+      success: true,
+      data: result.Attributes
     };
-  
-    docClient.update(params, (err, data) => {
-      if (err) {
-        console.error('Error updating item:', err);
-      } else {
-        console.log('Updated item:', data);
-      }
-    });
-};
+  } catch (error) {
+    console.error('Error updating field:', error);
+    return {
+      success: false,
+      message: 'Error updating field'
+    };
+  }
+}
+
 
 module.exports = dbController;

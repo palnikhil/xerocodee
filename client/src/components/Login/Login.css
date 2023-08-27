@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
 .login-box {
-    width: 50%;
+    width: 65%;
     height: 80%;
-
     flex-shrink: 0;
     border-radius: 0 35px 0 35px;
     background-color: white;
@@ -9,21 +9,97 @@
     flex-direction: row;
 }
 
-.login-box_divider {
-    height: 90%;
-    border-left: 1px solid rgba(0, 0, 0, 0.45);
+.auth_details-welcome-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
 }
+
+.login-box_auth{
+    width: 50%;
+}
+
 
 .auth_details {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     padding: 50px;
+    margin: 20px 0;
+    border-right: 1px solid #767c8d73;
 }
 
 .login-box_icon {
+    width: 50%;
     display:  flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-end;
 }
+
+.login-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+  /* Style for the horizontal lines */
+.login-horizontal-line {
+    width: 35%; /* Make the line span the full width of the container */
+    border-top: 1px solid #AAB2C873; /* Change the color and style as needed */
+    transform: translateY(-50%); /* Adjust to vertically center the line */
+}
+
+.login-choose-text {
+    color: #50535b73;
+    font-size: 50%;
+    font-family: 'Nunito', sans-serif;
+}
+
+.login-box-input {
+    font-family: 'Nunito', sans-serif;
+    font-size: 60%;
+    padding: 2%;
+    margin: 2%;
+    border-radius: 5px;
+    border: 0.5px solid #767c8d73;
+}
+
+.login-box-button {
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 60%;
+    padding: 2%;
+    margin: 2%;
+    border-radius: 5px;
+    border: 0.5px solid #767c8d73;
+    background-color: #1F64FF;
+}
+
+.login-box-button:hover {
+   background-color: white;
+   color: #1F64FF;
+}
+
+.social-login-button-group{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.social-login-button{
+    border: 1px solid #50535b73;
+    border-radius: 5px;
+    height: 10%;
+    padding: 5px;
+    display: flex;
+}
+.social-login-button>p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 50%;
+}
+
+.message{
+    font-family: 'Nunito', sans-serif;
+    font-size: 50%;
+    color: #1F64FF;
+} 

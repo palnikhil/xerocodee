@@ -1,16 +1,19 @@
 const express = require('express');
+const config = require('../config/config');
 const authController = require('../controllers/authController');
 const { verifyToken } = require('../middleware/authMiddleware');
 const dbController = require('../db/dbController');
 const router = express.Router();
 const passport = require('passport');
+const dbHandler = require('../controllers/dbHandler');
+const { getRepos } = require('../controllers/githubController');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
 
 passport.use(new GoogleStrategy({
     // Google OAuth options
-    clientID: "944067594272-3c2lvee7qq83ehi4bj6gahjog0elkqn3.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID: config.app.GOOGLE_CLIENT_ID,
+    clientSecret: config.app.GOOGLE_CLIENT_SECRET,
     callbackURL: '/auth/google/callback'
 }, (accessToken, refreshToken, profile, done) => {
     return done(null, profile);
@@ -18,10 +21,13 @@ passport.use(new GoogleStrategy({
 
 passport.use(new GitHubStrategy({
     // GitHub OAuth options
-    clientID: "0685a1f04f9742a9c9d6",
-    clientSecret: "66381a2d8fa2ebbe7b63a391668ab9fa476f7d20",
-    callbackURL: '/auth/github/callback'
+    clientID: config.app.GITHUB_CLIENT_ID,
+    clientSecret: config.app.GITHUB_SECRET,
+    callbackURL: '/auth/github/callback',
+    scope: 'repo'
 }, (accessToken, refreshToken, profile, done) => {
+    console.log('accessToken:',accessToken);
+    console.log(profile)
     return done(null, profile);
 }));
 
@@ -32,11 +38,14 @@ router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/' }),
     async (req, res) => {
         let result = await authController.GoogleAuth(req);
+        console.log(result);
         if(result.code === 201){
-            res.cookie('result',result.data.token).status(result.code).send(result).redirect('http://localhost:3000/login');
+            res.cookie('token',result.data.token).status(result.code).redirect('http://localhost:3000/login');
+        }else if(result.code === 200){
+            res.cookie('token',result.data.token).status(result.code).redirect('http://localhost:3000/dashboard');
         }
         else{
-            res.redirect('http://localhost:3000/login');
+            res.cookie('result', result).status(result.code).redirect('http://localhost:3000/login');
         }
     }
 );
@@ -46,13 +55,15 @@ router.get('/auth/github', passport.authenticate('github'));
 router.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/' }),
     async(req, res) => {
-        let result = await authController.GoogleAuth(req)
+        console.log(req.user);
+        let result = await authController.GithubAuth(req)
         if(result.code === 201){
-            res.cookie(result);
-            res.status(result.code).send(result)
+            res.cookie('token',result.data.token).status(result.code).redirect('http://localhost:3000/login');
+        }else if(result.code === 200){
+            res.cookie('token',result.data.token).status(result.code).redirect('http://localhost:3000/dashboard');
         }
         else{
-            res.status(result.code).send(result)
+            res.cookie('result', result).status(result.code).redirect('http://localhost:3000/login');
         }
     }
 );
@@ -74,6 +85,12 @@ router.route('/login').post(async (req,res) => {
     let result = await authController.login(req);
     res.status(result.code).send(result);
 })
+
+router.put('/update',verifyToken, async(req,res) => {
+    let result = await dbHandler.updateRecord(req);
+    res.status(result.code).send(result);
+});
+
 router.get('/logout', verifyToken, authController.logout);
 
 router.get('/user-info', verifyToken, async(req,res)=>{
@@ -82,4 +99,9 @@ router.get('/user-info', verifyToken, async(req,res)=>{
     res.status(result.code).send(result);
 });
 
+router.get('/getGithubrepos/:username', verifyToken, async(req,res)=>{
+    let result = await getRepos(req.params.username);
+    res.status(result.code).send(result);
+
+})
 module.exports = router;

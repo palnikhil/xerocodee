@@ -7,7 +7,11 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
 app.use(bodyParser.json());
-app.use(cors());
+const allowedOrigins = ['http://localhost:3000'];
+app.use(cors({
+  origin: allowedOrigins
+}));
+
 
 app.use('/', authRoutes);
 
