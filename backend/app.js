@@ -8,7 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
 app.use(bodyParser.json());
-const allowedOrigins = ['https://xerocodee-assignment-o79u.onrender.com'];
+const allowedOrigins = ['https://xerocodee-assignment-o79u.onrender.com',''];
 app.use(cors({
   origin: allowedOrigins
 }));

@@ -15,10 +15,10 @@ function Register() {
     const [message, setMessage] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const google = () => {
-        window.open("http://localhost:5000/auth/google", "_self");
+        window.open("https://xerocodee-backend.onrender.com/auth/google", "_self");
       };
     const Github = () => {
-        window.open("http://localhost:5000/auth/github", "_self");
+        window.open("https://xerocodee-backend.onrender.com/auth/github", "_self");
     }
     const RegisterUser = async () => {
         console.log(process.env.REACT_APP_BACKEND_URL)
